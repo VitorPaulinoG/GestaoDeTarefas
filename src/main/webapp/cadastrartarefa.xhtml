@@ -2,38 +2,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Cadastrar Tarefa</title>
+   	<h:outputStylesheet name="css/tarefaStyle.css"/>
 </h:head>
 <h:body>
-	<h1>Cadastrar Tarefa</h1>
-    <h:form>
-        <h:panelGrid columns="2">
-        	Título:
-	        <h:inputText id="campoTitulo" value="#{tarefaBean.titulo}"></h:inputText>
-	        <br/>
-	        Descrição:
-	        <h:inputTextarea id="campoDescricao" value="#{tarefaBean.descricao}"></h:inputTextarea>
-	        <br/>
-	        Responsável:
-	        <h:selectOneMenu value="#{tarefaBean.responsavel}">
-	            <f:selectItem itemValue="1" itemLabel="Opção 1"/>
-	            <f:selectItem itemValue="2" itemLabel="Opção 2"/>
-	            <f:selectItem itemValue="3" itemLabel="Opção 3"/>
-	        </h:selectOneMenu>
-	        Prioridade:
-	        <h:selectOneMenu value="#{tarefaBean.prioridade}">
-	            <f:selectItem itemValue="1" itemLabel="Opção 1"/>
-	            <f:selectItem itemValue="2" itemLabel="Opção 2"/>
-	            <f:selectItem itemValue="3" itemLabel="Opção 3"/>
-	        </h:selectOneMenu>
-	        <br/>
-	        Deadline:
-	        <h:inputText id="campoDeadline" value="#{tarefaBean.descricao}"></h:inputText>
-	        <br/>
-	        <h:button value="Cadastrar"/>
-        </h:panelGrid>
-    </h:form>
+	<div class="central-box">
+		<h1>Cadastrar Tarefa</h1>
+	    <h:form>
+	        <div class="custom-grid">
+			    <h:outputLabel value="Título:" for="cmpTitulo" />
+			    <p:inputText id="cmpTitulo" value="#{tarefaBean.titulo}"/>
+			
+			    <h:outputLabel value="Descrição:" for="cmpDescricao" />
+			    <p:inputTextarea class="descricao-textarea" id="cmpDescricao" value="#{tarefaBean.descricao}"
+			                     autoResize="false"/>
+			
+			    <div class="selectMenus">
+				    <h:outputLabel value="Responsável:" for="responsavelMenu" />
+				    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.responsavel}">
+				        <f:selectItem itemValue="1" itemLabel="Opção 1"/>
+				        <f:selectItem itemValue="2" itemLabel="Opção 2"/>
+				        <f:selectItem itemValue="3" itemLabel="Opção 3"/>
+				    </h:selectOneMenu>
+				
+				    <h:outputLabel value="Prioridade:" for="prioridadeMenu" />
+				    <h:selectOneMenu id="prioridadeMenu" value="#{tarefaBean.prioridade}">
+				        <f:selectItem itemValue="1" itemLabel="Opção 1"/>
+				        <f:selectItem itemValue="2" itemLabel="Opção 2"/>
+				        <f:selectItem itemValue="3" itemLabel="Opção 3"/>
+				    </h:selectOneMenu>
+			    </div>
+				<br/>
+			    <h:outputLabel value="Deadline:" for="campoDeadline" />
+			    <h:inputText id="campoDeadline" value="#{tarefaBean.descricao}"/>
+			
+			    <h:outputLabel value="" /> <!-- Empty label to align the button -->
+			    <h:button value="Cadastrar"/>
+			</div>
+
+	    </h:form>
+    </div>
 </h:body>
 </html>
