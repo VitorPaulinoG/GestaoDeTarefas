@@ -7,6 +7,10 @@ body {
     height: 100vh; 
     background-color: #f0f0f0;
 }
+* {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 
 .central-box {
     background-color: #fff; 
@@ -20,27 +24,30 @@ body {
 
 .descricao-textarea {
    	resize: vertical;
-    min-height: 300px; /* Altura definida */
+    min-height: 100px; 
 }
+
+
 
 .custom-grid {
     display: grid;
-    grid-template-columns: 200px 1fr; /* Primeira coluna fixa e segunda coluna flexível */
-    gap: 10px 20px; /* Espaçamento entre linhas e colunas */
-    align-items: center; /* Centraliza verticalmente os itens */
+    grid-template-columns: 100px 1fr; 
+    gap: 10px 10px; 
+    align-items: center; 
     max-width: 600px;
     margin: 0 auto;
-}
-
-.custom-grid span {
-    text-align: right;
-    font-weight: bold;
+    
 }
 
 .selectMenus {
 	display: flex;
 	flex-direction: row;
-	
-	justify-content: center;
+	justify-content: space-around;
 }
+.selectMenus div {
+	display: flex;
+	flex-direction: row;
+}
+
+
 
