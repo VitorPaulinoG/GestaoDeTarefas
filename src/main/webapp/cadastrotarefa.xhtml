@@ -3,54 +3,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-    <title>Cadastrar Tarefa</title>
    	<h:outputStylesheet name="css/tarefaStyle.css"/>
+   	<h:outputStylesheet name="css/style.css"/>
+   	<title>Cadastrar Tarefa</title>
 </h:head>
 <h:body>
-	<div class="central-box">
-		<h1>Cadastrar Tarefa</h1>
-	    <h:form class="form-cadastro">
-	        <div class="custom-grid">
-			    <h:outputLabel value="Título:" for="cmpTitulo" />
-			    <p:inputText id="cmpTitulo" value="#{tarefaBean.titulo}"/>
-			
-			    <h:outputLabel value="Descrição:" for="cmpDescricao" />
-			    <p:inputTextarea class="descricao-textarea" id="cmpDescricao" value="#{tarefaBean.descricao}"
-			                     autoResize="false"/>
-			
-			</div>
+	<div class="main-panel" id="main-panel">
+		<h1 class="site-title">Gestão de Tarefas</h1>
+		<div>
+		</div>
+		<h:button class="no-border-button" value="Cadastrar Tarefa" outcome="cadastrotarefa"/>
+		<h:button class="no-border-button" value="Tarefas" outcome="listartarefas"/>
+		<h:button class="no-border-button" value="Login" outcome="login"/>
+	</div>
+	<div class="content">
+		<div class="central-box">
+		
+		    <h:form class="form-cadastro">
+		        <div class="custom-grid">
+				    <h:outputLabel value="Título:" for="cmpTitulo" />
+				    <h:inputText id="cmpTitulo" value="#{tarefaBean.tarefa.titulo}"/>
+				
+				    <h:outputLabel value="Descrição:" for="cmpDescricao" />
+				    <h:inputTextarea class="descricao-textarea" id="cmpDescricao" value="#{tarefaBean.tarefa.descricao}"
+				                     autoResize="false"/>
+				</div>
 			    <div class="selectMenus">
 			    	<div>
 				    	<h:outputLabel value="Responsável:" for="responsavelMenu" />
-					    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.responsavel}">
-					        <f:selectItem itemValue="1" itemLabel="Opção 1"/>
-					        <f:selectItem itemValue="2" itemLabel="Opção 2"/>
-					        <f:selectItem itemValue="3" itemLabel="Opção 3"/>
-					    </h:selectOneMenu>
+					    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.item}">
+						    <f:selectItem itemLabel="Selecione um responsável" itemValue="" />
+						    <f:selectItems value="#{tarefaBean.usuarios}" var="usuario" itemValue="#{usuario.id}" itemLabel="#{usuario.name}" />
+						</h:selectOneMenu>
 			    	</div>
 				    
 					<div>
 					    <h:outputLabel value="Prioridade:" for="prioridadeMenu" />
-					    <h:selectOneMenu id="prioridadeMenu" value="#{tarefaBean.prioridade}">
-					        <f:selectItem itemValue="1" itemLabel="Opção 1"/>
-					        <f:selectItem itemValue="2" itemLabel="Opção 2"/>
-					        <f:selectItem itemValue="3" itemLabel="Opção 3"/>
+					    <h:selectOneMenu id="prioridadeMenu" value="#{tarefaBean.prioridadeSelecionada}">
+					        <f:selectItem itemLabel="Selecione uma prioridade" itemValue="" />
+					        <f:selectItems value="#{tarefaBean.prioridades}" var="prioridade" itemValue="#{prioridade.value}" itemLabel="#{prioridade.label}" />
 					    </h:selectOneMenu>
 				    </div>
 			    </div>
-				
 			    <h:outputLabel value="Deadline:" for="cmpDeadline" />
-			    <div class="field col-12 md:col-4">
-						<p:outputLabel for="basic" value="Basic" />
-						<p:datePicker id="basic" value="#{calendarView.date}" />
-					</div>
-			    <p:inputText id="cmpDeadline" value="#{tarefaBean.descricao}"/>
+			    <h:inputText id="cmpDeadline" value="#{tarefaBean.tarefa.deadline}" a:type="date">
+			    	 <f:convertDateTime pattern="yyyy-MM-dd"/>
+			    </h:inputText>
 				<br/>
-			    <h:button value="Cadastrar"/>
+			    <h:commandButton value="Cadastrar" action="#{tarefaBean.salvar}"/>
+	    	</h:form>
+   		</div>  
+	</div>
+	
 
-	    </h:form>
-    </div>
 </h:body>
 </html>
