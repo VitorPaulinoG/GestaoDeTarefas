@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,8 +26,9 @@ public class Tarefa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	@Column(length = 255, columnDefinition = "VARCHAR(255)", nullable = false)
 	private String titulo;
+	@Column(length = 1000, columnDefinition = "VARCHAR(1000)")
 	private String descricao;
 	@ManyToOne
 	@JoinColumn(name="responsavel_id", nullable = false)
@@ -35,9 +37,12 @@ public class Tarefa implements Serializable {
 	private Prioridade prioridade;
 	@Temporal(TemporalType.DATE)
 	private Date deadline;
+	@Enumerated(EnumType.STRING)
+	private SituacaoTarefa situacao;
 	
 	
 	
+
 	public Tarefa() {
 		
 	}
@@ -77,6 +82,14 @@ public class Tarefa implements Serializable {
 	}
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
+	}
+
+	public SituacaoTarefa getSituacao() {
+		return situacao;
+	}
+	
+	public void setSituacao(SituacaoTarefa situacao) {
+		this.situacao = situacao;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,9 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(length = 255, columnDefinition = "VARCHAR(255)", nullable = false)
 	private String name;
+	@Column(length = 255, columnDefinition = "VARCHAR(255)", nullable = false)
 	private String email;
 	private String password; 
 	

@@ -12,6 +12,7 @@ import dao.GenericDAO;
 import entities.Tarefa;
 import entities.Usuario;
 import entities.Prioridade;
+import entities.SituacaoTarefa;
 @ViewScoped
 @ManagedBean(name = "tarefaBean")
 public class TarefaBean {
@@ -39,6 +40,7 @@ public class TarefaBean {
 		user.setId(id);
 		user = dao.buscar(user);
 		tarefa.setResponsavel(user);
+		tarefa.setSituacao(SituacaoTarefa.EMANDAMENTO);
 		tarefa.setPrioridade(prioridadeSelecionada);
 		dataAccess.salvar(tarefa);
 		tarefa = new Tarefa();
