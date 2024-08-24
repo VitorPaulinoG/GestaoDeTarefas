@@ -10,11 +10,16 @@ body {
     height: 100vh; 
     background-color: #f0f0f0;
 }
+/*
 * {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-
+*/
+.form-cadastro > *{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 .central-box {
     background-color: #fff; 
     padding: 20px;

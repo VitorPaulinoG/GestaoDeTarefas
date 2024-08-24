@@ -1,10 +1,11 @@
+/*
 body {
     margin: 0;
     padding: 0;
-    height: 100vh; /* Ocupa a altura total da viewport */
-    background-color: #f0f0f0; /* Cor de fundo da página */
+    height: 100vh;
+    background-color: #f0f0f0; 
 }
-
+*/
 .main-panel{
 	position: fixed;
     top: 0;
