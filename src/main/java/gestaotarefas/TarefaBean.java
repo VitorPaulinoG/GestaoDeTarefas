@@ -1,47 +1,115 @@
-package GestaoDeTarefas;
+package gestaotarefas;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-@RequestScoped
+import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
+
+import dao.GenericDAO;
+import entities.Tarefa;
+import entities.Usuario;
+import entities.Prioridade;
+@ViewScoped
 @ManagedBean(name = "tarefaBean")
 public class TarefaBean {
-	private String titulo;
-	private String descricao;
-	private String responsavel; // Classe Usuario
-	private String prioridade; // Enum Prioridade
-	private LocalDate deadline; 
+	private Tarefa tarefa = new Tarefa();
 	
 	
-	public String getTitulo() {
-		return titulo;
+	private Usuario usuarioSelecionado = new Usuario();
+	private Long item;
+
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	
+	private Prioridade prioridadeSelecionada; 
+	
+	private GenericDAO<Tarefa> dataAccess = new GenericDAO<Tarefa>();
+	
+	
+	
+	
+	
+	public String salvar ()
+	{
+		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
+		Long id = item;
+		Usuario user = new Usuario();
+		user.setId(id);
+		user = dao.buscar(user);
+		tarefa.setResponsavel(user);
+		tarefa.setPrioridade(prioridadeSelecionada);
+		dataAccess.salvar(tarefa);
+		tarefa = new Tarefa();
+		return "";
 	}
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	
+	@PostConstruct
+	public void atualizaListaDeUsuarios()
+	{
+		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
+		this.setUsuarios(dao.listar(Usuario.class));
 	}
-	public String getDescricao() {
-		return descricao;
+	
+	
+	public List<SelectItem> getPrioridades() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (Prioridade prioridade : Prioridade.values()) {
+            items.add(new SelectItem(prioridade, prioridade.getLabel()));
+        }
+        return items;
+    }
+
+
+	
+	
+	
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
 	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public Tarefa getTarefa() {
+		return tarefa;
 	}
-	public String getResponsavel() {
-		return responsavel;
+	public GenericDAO<Tarefa> getDataAccess() {
+		return dataAccess;
 	}
-	public void setResponsavel(String usuario) {
-		this.responsavel = usuario;
+	public void setDataAccess(GenericDAO<Tarefa> dataAccess) {
+		this.dataAccess = dataAccess;
 	}
-	public String getPrioridade() {
-		return prioridade;
+
+
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
 	}
-	public void setPrioridade(String prioridade) {
-		this.prioridade = prioridade;
+
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+		this.usuarioSelecionado = usuarioSelecionado;
 	}
-	public LocalDate getDeadline() {
-		return deadline;
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
 	}
-	public void setDeadline(LocalDate deadline) {
-		this.deadline = deadline;
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Prioridade getPrioridadeSelecionada() {
+		return prioridadeSelecionada;
+	}
+
+	public void setPrioridadeSelecionada(Prioridade prioridadeSelecionada) {
+		this.prioridadeSelecionada = prioridadeSelecionada;
+	}
+
+	public Long getItem() {
+		return item;
+	}
+	
+	public void setItem(Long item) {
+		this.item = item;
 	}
 }
+
