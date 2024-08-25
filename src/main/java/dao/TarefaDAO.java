@@ -59,6 +59,8 @@ public class TarefaDAO extends GenericDAO<Tarefa>{
 			} else if (titulo)
 			{
 				q += "(titulo like :expr or descricao like :expr) ";
+			} else {
+				return super.listarOrdenado(Tarefa.class);
 			}
 		}
 		
