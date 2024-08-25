@@ -15,15 +15,12 @@ body {
     padding: 20px 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 800px;
-    min-width: 800px;
+    width: 1200px;
+    min-width: 1000px;
     text-align: center;
     align-items: stretch; 
 }
-.buscar-button {
-	width: 200px;
-	
-}
+
 .form-cadastro {
 	display: flex;
     flex-direction: column;
@@ -33,6 +30,10 @@ body {
 	margin-bottom: 5px;
 }
 
+.buscar-button {
+	width: 200px;
+	align-self: center;
+}
 .custom-grid {
     display: grid;
     grid-template-columns: 200px 2fr 3fr;
