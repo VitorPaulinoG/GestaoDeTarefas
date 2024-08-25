@@ -52,7 +52,8 @@ public class TarefaBean {
 		tarefa.setPrioridade(prioridadeSelecionada);
 		dataAccess.salvar(tarefa);
 		limparCampos();
-		//carregarTarefas();
+		
+		carregarTarefas();
 		return "";
 	}
 	public String editar ()
