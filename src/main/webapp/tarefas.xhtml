@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+   	<h:outputStylesheet name="css/listaTarefaStyle.css"/>
+   	<h:outputStylesheet name="css/style.css"/>
+   	<title>Cadastrar Tarefa</title>
+</h:head>
+<h:body>
+	<div class="main-panel" id="main-panel">
+		<h1 class="site-title">Gestão de Tarefas</h1>
+		<div>
+		</div>
+		<h:button class="no-border-button" value="Cadastrar Tarefa" outcome="cadastrotarefa"/>
+		<h:button class="no-border-button" value="Tarefas" outcome="tarefas"/>
+		<h:button class="no-border-button" value="Login" outcome="login"/>
+	</div>
+	<div class="content">
+		<div class="central-box">
+			<h2>Tarefas</h2>
+		    <h:form class="form-cadastro">
+				 
+		    	<div class="custom-grid">
+		    		 
+		    		<h:outputLabel value="Número: " for="cmpNumero" />
+				    <h:inputText class="grid1-col2-span1" id="cmpNumero" value="#{tarefaBean.filtro.numero}"/>
+					<br/>
+				    <h:outputLabel value="Título/Descrição:" for="cmpTituloDescricao" />
+				    <h:inputText class="cmpTituloDescricao grid1-col2-span2" id="cmpTituloDescricao" value="#{tarefaBean.filtro.tituloDescricao}"/>
+				    
+				</div>
+				<div class="selectMenus">
+			    	<div>
+				    	<h:outputLabel value="Responsável:" for="responsavelMenu" />
+					    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.filtro.responsavelSelecionadoId}">
+						    <f:selectItem itemLabel="Selecione um responsável" itemValue="#{null}" noSelectionOption="true"/>
+						    <f:selectItems value="#{tarefaBean.usuarios}" var="usuario" itemValue="#{usuario.id}" itemLabel="#{usuario.name}" />
+						</h:selectOneMenu>
+			    	</div>
+				    
+					<div>
+					    <h:outputLabel value="Situação" for="situacaoMenu" />
+					    <h:selectOneMenu id="situacaoMenu" value="#{tarefaBean.filtro.situacaoSelecionada}">
+					        <f:selectItem itemLabel="Selecione uma situacão"  itemValue="#{null}" noSelectionOption="true"/>
+					        <f:selectItems value="#{tarefaBean.situacoes}" var="situacao" itemValue="#{situacao.value}" itemLabel="#{situacao.label}" />
+					    </h:selectOneMenu>
+				    </div>
+			    </div>
+				
+			    
+			    <h:commandButton class="buscar-button" value="Buscar Tarefas" actionListener="#{tarefaBean.filtrar}" update="@form"/>
+	    		<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" cellspacing="2">
+		    		<h:column>
+		    			<f:facet name="header" >
+							<h:outputText value="Número"/>	    			
+		    			</f:facet>
+		    			<h:outputText value="#{tarefa.id}"/>
+		    		</h:column>
+		    		<h:column>
+		    			<f:facet name="header" >
+							<h:outputText value="Titúlo"/>	    			
+		    			</f:facet>
+		    			<h:outputText value="#{tarefa.titulo}"/>
+		    		</h:column>
+		    		<h:column>
+		    			<f:facet name="header" >
+							<h:outputText value="Responsável"/>	    			
+		    			</f:facet>
+		    			<h:outputText value="#{tarefa.responsavel.name}"/>
+		    		
+		    		</h:column>
+		    		<h:column>
+		    			<f:facet name="header" >
+							<h:outputText value="Ações"/>	    			
+		    			</f:facet>
+		    			<h:commandLink value="Editar">
+		    				<f:setPropertyActionListener target="#{tarefaBean.tarefa}" value="#{tarefa}"/>
+		    			</h:commandLink>
+		    			<h:outputText value=" | "/>
+		    			<h:commandLink value="Excluir" action="#{tarefaBean.remover}">
+		    				<f:setPropertyActionListener target="#{tarefaBean.tarefa}" value="#{tarefa}"/>
+		    			</h:commandLink>
+		    			<h:outputText value=" | "/>
+		    			<h:commandLink value="Concluir" action="#{tarefaBean.concluir}">
+		    				<f:setPropertyActionListener target="#{tarefaBean.tarefa}" value="#{tarefa}"/>
+		    			</h:commandLink>
+	
+		    		</h:column>
+	    		</h:dataTable>
+	    	</h:form>
+	    	
+	    	
+   		</div>  
+	</div>
+	
+
+</h:body>
+</html>

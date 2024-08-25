@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
    	<h:outputStylesheet name="css/tarefaStyle.css"/>
@@ -16,14 +15,14 @@
 		<div>
 		</div>
 		<h:button class="no-border-button" value="Cadastrar Tarefa" outcome="cadastrotarefa"/>
-		<h:button class="no-border-button" value="Tarefas" outcome="listartarefas"/>
+		<h:button class="no-border-button" value="Tarefas" outcome="tarefas"/>
 		<h:button class="no-border-button" value="Login" outcome="login"/>
 	</div>
 	<div class="content">
 		<div class="central-box">
+	    	<h2>Cadastro de Tarefa</h2>
 		
 		    <h:form class="form-cadastro">
-		    	<h2>Cadastro de Tarefa</h2>
 		        <div class="custom-grid">
 				    <h:outputLabel value="Título:" for="cmpTitulo" />
 				    <h:inputText id="cmpTitulo" value="#{tarefaBean.tarefa.titulo}"/>
@@ -35,7 +34,7 @@
 			    <div class="selectMenus">
 			    	<div>
 				    	<h:outputLabel value="Responsável:" for="responsavelMenu" />
-					    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.item}">
+					    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.usuarioSelecionadoId}">
 						    <f:selectItem itemLabel="Selecione um responsável" itemValue="#{null}" noSelectionOption="true"/>
 						    <f:selectItems value="#{tarefaBean.usuarios}" var="usuario" itemValue="#{usuario.id}" itemLabel="#{usuario.name}" />
 						</h:selectOneMenu>

@@ -1,0 +1,64 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    background-color: #f0f0f0;
+}
+
+.central-box {
+    background-color: #fff; 
+    padding: 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    min-width: 800px;
+    text-align: center;
+    align-items: stretch; 
+}
+.buscar-button {
+	width: 200px;
+	
+}
+.form-cadastro {
+	display: flex;
+    flex-direction: column;
+}
+.form-cadastro * {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.custom-grid {
+    display: grid;
+    grid-template-columns: 200px 2fr 3fr;
+    align-items: stretch; 
+    margin: 0 0;
+    width:100%;
+    
+}
+.grid1-col2-span1 {
+	grid-column-start: 2;
+	grid-column-end: span 1;
+}
+.grid1-col2-span2 {
+	grid-column-start: 2;
+	grid-column-end: span 2;
+}
+
+
+.selectMenus {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+    margin: 0 0;
+    width:100%;
+}
+.selectMenus > div {
+	display: grid; 
+	grid-template-columns: 200px 2fr;
+}
+
