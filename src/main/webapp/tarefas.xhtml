@@ -7,16 +7,24 @@
 <h:head>
    	<h:outputStylesheet name="css/listaTarefaStyle.css"/>
    	<h:outputStylesheet name="css/style.css"/>
-   	<title>Cadastrar Tarefa</title>
+   	<title>Tarefas</title>
 </h:head>
 <h:body>
 	<div class="main-panel" id="main-panel">
 		<h1 class="site-title">Gestão de Tarefas</h1>
 		<div>
 		</div>
-		<h:button class="no-border-button" value="Cadastrar Tarefa" outcome="cadastrotarefa"/>
-		<h:button class="no-border-button" value="Tarefas" outcome="tarefas"/>
-		<h:button class="no-border-button" value="Login" outcome="login"/>
+		<h:form class="form-header-button">
+			<div class="no-border-button">
+				<h:commandLink value="Cadastrar Tarefa" action="#{tarefaBean.irParaCadastro}" />		
+			</div>
+			<div class="no-border-button">
+				<h:commandLink value="Tarefas" action="tarefas"/>
+			</div>
+			<div class="no-border-button">
+				<h:commandLink value="Login"/>		
+			</div>
+		</h:form>
 	</div>
 	<div class="content">
 		<div class="central-box">
@@ -83,7 +91,9 @@
 		    			<f:facet name="header" >
 							<h:outputText value="Deadline"/>	    			
 		    			</f:facet>
-		    			<h:outputText value="#{tarefa.deadline}"/>
+		    			<h:outputText value="#{tarefa.deadline}">
+		    				<f:convertDateTime pattern="yyyy-MM-dd"/>
+		    			</h:outputText>
 		    		
 		    		</h:column>
 		    		<h:column>
@@ -97,7 +107,7 @@
 		    			<f:facet name="header" >
 							<h:outputText value="Ações"/>	    			
 		    			</f:facet>
-		    			<h:commandLink value="Editar">
+		    			<h:commandLink value="Editar" action="#{tarefaBean.editar}" >
 		    				<f:setPropertyActionListener target="#{tarefaBean.tarefa}" value="#{tarefa}"/>
 		    			</h:commandLink>
 		    			<h:outputText value=" | "/>

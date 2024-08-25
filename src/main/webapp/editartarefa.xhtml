@@ -7,7 +7,9 @@
 <h:head>
    	<h:outputStylesheet name="css/tarefaStyle.css"/>
    	<h:outputStylesheet name="css/style.css"/>
-   	<title>Cadastrar Tarefa</title>
+   	
+   	
+   	<title>Editar Tarefa</title>
 </h:head>
 <h:body>
 	<div class="main-panel" id="main-panel">
@@ -28,10 +30,12 @@
 	</div>
 	<div class="content">
 		<div class="central-box">
-	    	<h2>Cadastro de Tarefa</h2>
+	    	<h2>Editar Tarefa</h2>
 		
 		    <h:form class="form-cadastro">
 		        <div class="custom-grid">
+		        	<h:outputLabel value="Número:" for="cmpNumero" />
+				    <h:inputText id="cmpNumero" value="#{tarefaBean.tarefa.id}" disabled="true"/>
 				    <h:outputLabel value="Título:" for="cmpTitulo" />
 				    <h:inputText id="cmpTitulo" value="#{tarefaBean.tarefa.titulo}"/>
 				
@@ -61,8 +65,10 @@
 			    	 <f:convertDateTime pattern="yyyy-MM-dd"/>
 			    </h:inputText>
 				<br/>
-			    <h:commandButton value="Cadastrar" action="#{tarefaBean.salvar}" update="@form"/>
+			    <h:commandButton value="Confirmar Modificação" action="#{tarefaBean.atualizar}" />
+			    <h:button value="Voltar" outcome="tarefas"/>
 	    	</h:form>
+	    	
    		</div>  
 	</div>
 	

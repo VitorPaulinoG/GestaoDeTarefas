@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIInput;
 import javax.faces.model.SelectItem;
 
 import dao.GenericDAO;
@@ -14,10 +16,12 @@ import entities.Tarefa;
 import entities.Usuario;
 import entities.Prioridade;
 import entities.SituacaoTarefa;
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "tarefaBean")
 public class TarefaBean {
 	private Tarefa tarefa = new Tarefa();
+
+
 	
 	
 //	private Usuario usuarioSelecionado = new Usuario();
@@ -51,7 +55,13 @@ public class TarefaBean {
 		//carregarTarefas();
 		return "";
 	}
-	
+	public String editar ()
+	{
+		prioridadeSelecionada = tarefa.getPrioridade();
+		usuarioSelecionadoId = tarefa.getResponsavel().getId();
+		return "editartarefa";
+	}
+
 	public String atualizar ()
 	{
 		
@@ -94,10 +104,18 @@ public class TarefaBean {
 		atualizaListaDeUsuarios();
 		carregarTarefas();
 	}
+	
+	
 	public void atualizaListaDeUsuarios()
 	{
 		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
 		this.setUsuarios(dao.listar(Usuario.class));
+	}
+	
+	public String irParaCadastro ()
+	{
+		limparCampos();
+		return "cadastrotarefa?faces-redirect=true";
 	}
 	
 	public void carregarTarefas ()

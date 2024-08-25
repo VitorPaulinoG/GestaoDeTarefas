@@ -13,9 +13,17 @@
 		<h1 class="site-title">Gestão de Tarefas</h1>
 		<div>
 		</div>
-		<h:button class="no-border-button" value="Cadastrar Tarefa" outcome="cadastrotarefa"/>
-		<h:button class="no-border-button" value="Tarefas" outcome="tarefas"/>
-		<h:button class="no-border-button" value="Login" outcome="login"/>
+		<h:form class="form-header-button">
+			<div class="no-border-button">
+				<h:commandLink value="Cadastrar Tarefa" action="#{tarefaBean.irParaCadastro}" />		
+			</div>
+			<div class="no-border-button">
+				<h:commandLink value="Tarefas" action="tarefas"/>
+			</div>
+			<div class="no-border-button">
+				<h:commandLink value="Login"/>		
+			</div>
+		</h:form>
     </div>
 </h:body>
 </html>

@@ -63,7 +63,7 @@ public class TarefaDAO extends GenericDAO<Tarefa>{
 				return super.listarOrdenado(Tarefa.class);
 			}
 		}
-		
+		q += " order by id ASC";
 		
 		
 		
