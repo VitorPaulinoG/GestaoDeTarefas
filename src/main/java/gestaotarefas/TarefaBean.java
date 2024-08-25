@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import dao.GenericDAO;
+import dao.TarefaDAO;
 import entities.Tarefa;
 import entities.Usuario;
 import entities.Prioridade;
@@ -19,8 +20,8 @@ public class TarefaBean {
 	private Tarefa tarefa = new Tarefa();
 	
 	
-	private Usuario usuarioSelecionado = new Usuario();
-	private Long item;
+//	private Usuario usuarioSelecionado = new Usuario();
+	private Long usuarioSelecionadoId;
 
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
@@ -28,14 +29,17 @@ public class TarefaBean {
 	
 	private GenericDAO<Tarefa> dataAccess = new GenericDAO<Tarefa>();
 	
+	private FiltroTarefa filtro = new FiltroTarefa();
 	
+
 	
+	private List<Tarefa> tarefas = new ArrayList<Tarefa>();
 	
 	
 	public String salvar ()
 	{
 		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
-		Long id = item;
+		Long id = usuarioSelecionadoId;
 		Usuario user = new Usuario();
 		user.setId(id);
 		user = dao.buscar(user);
@@ -43,17 +47,63 @@ public class TarefaBean {
 		tarefa.setSituacao(SituacaoTarefa.EMANDAMENTO);
 		tarefa.setPrioridade(prioridadeSelecionada);
 		dataAccess.salvar(tarefa);
-		tarefa = new Tarefa();
+		limparCampos();
+		//carregarTarefas();
 		return "";
 	}
 	
+	public String atualizar ()
+	{
+		
+		tarefa = dataAccess.mesclar(tarefa);
+		carregarTarefas();
+		return "";
+	}
+	
+	public String concluir ()
+	{
+		tarefa.setSituacao(SituacaoTarefa.CONCLUIDA);
+		
+		return atualizar();
+	}
+	
+	public void filtrar ()
+	{
+		TarefaDAO dao = new TarefaDAO();
+		tarefas = dao.filtrar(filtro);
+	}
+	public String remover ()
+	{
+		
+		dataAccess.remover(tarefa);
+		carregarTarefas();
+		return "";
+	}
+	
+	public void limparCampos ()
+	{
+		tarefa = new Tarefa();
+		setUsuarioSelecionadoId(0L);
+		setPrioridadeSelecionada(null);
+	}
+	
+	
 	@PostConstruct
+	public void init ()
+	{
+		atualizaListaDeUsuarios();
+		carregarTarefas();
+	}
 	public void atualizaListaDeUsuarios()
 	{
 		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
 		this.setUsuarios(dao.listar(Usuario.class));
 	}
 	
+	public void carregarTarefas ()
+	{
+		tarefas = dataAccess.listarOrdenado(Tarefa.class);
+	}
 	
 	public List<SelectItem> getPrioridades() {
         List<SelectItem> items = new ArrayList<SelectItem>();
@@ -62,16 +112,28 @@ public class TarefaBean {
         }
         return items;
     }
-
-
+	
+	public List<SelectItem> getSituacoes() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (SituacaoTarefa situacao : SituacaoTarefa.values()) {
+            items.add(new SelectItem(situacao, situacao.getLabel()));
+        }
+        return items;
+    }
 	
 	
 	
-	public void setTarefa(Tarefa tarefa) {
-		this.tarefa = tarefa;
+	
+	public List<Tarefa> getTarefas ()
+	{
+		return tarefas;
 	}
+	
 	public Tarefa getTarefa() {
 		return tarefa;
+	}
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
 	}
 	public GenericDAO<Tarefa> getDataAccess() {
 		return dataAccess;
@@ -81,13 +143,15 @@ public class TarefaBean {
 	}
 
 
-	public Usuario getUsuarioSelecionado() {
-		return usuarioSelecionado;
+	public FiltroTarefa getFiltro() {
+		return filtro;
+	}
+	public void setFiltro(FiltroTarefa filtro) {
+		this.filtro = filtro;
 	}
 
-
-	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
-		this.usuarioSelecionado = usuarioSelecionado;
+	public void setTarefas(List<Tarefa> tarefas) {
+		this.tarefas = tarefas;
 	}
 
 	public List<Usuario> getUsuarios() {
@@ -106,12 +170,14 @@ public class TarefaBean {
 		this.prioridadeSelecionada = prioridadeSelecionada;
 	}
 
-	public Long getItem() {
-		return item;
+	public Long getUsuarioSelecionadoId() {
+		return usuarioSelecionadoId;
 	}
 	
-	public void setItem(Long item) {
-		this.item = item;
+	public void setUsuarioSelecionadoId(Long item) {
+		this.usuarioSelecionadoId = item;
 	}
+
+
 }
 
