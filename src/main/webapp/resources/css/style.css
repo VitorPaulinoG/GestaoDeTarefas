@@ -25,3 +25,9 @@
 	margin: 5px 5px ;
    	
 }
+.error-message {
+	font-size: 12px;
+	color: red !important;
+	text-align: justify;
+	max-width: 200px;
+}

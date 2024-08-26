@@ -33,7 +33,10 @@
 		    <h:form class="form-cadastro">
 		        <div class="custom-grid">
 				    <h:outputLabel value="Título:" for="cmpTitulo" />
-				    <h:inputText id="cmpTitulo" value="#{tarefaBean.tarefa.titulo}"/>
+				    <h:inputText id="cmpTitulo" value="#{tarefaBean.tarefa.titulo}" required="true"
+				    	requiredMessage="O campo Título é obrigatório.">
+				    	<f:validateLength minimum="1" />	
+				    </h:inputText>
 				
 				    <h:outputLabel value="Descrição:" for="cmpDescricao" />
 				    <h:inputTextarea class="descricao-textarea" id="cmpDescricao" value="#{tarefaBean.tarefa.descricao}"
@@ -42,7 +45,8 @@
 			    <div class="selectMenus">
 			    	<div>
 				    	<h:outputLabel value="Responsável:" for="responsavelMenu" />
-					    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.usuarioSelecionadoId}">
+					    <h:selectOneMenu id="responsavelMenu" value="#{tarefaBean.usuarioSelecionadoId}" required="true"
+				    	 	requiredMessage="O campo Responsável é obrigatório.">
 						    <f:selectItem itemLabel="Selecione um responsável" itemValue="#{null}" noSelectionOption="true"/>
 						    <f:selectItems value="#{usuarioBean.usuarios}" var="usuario" itemValue="#{usuario.id}" itemLabel="#{usuario.name}" />
 						</h:selectOneMenu>
@@ -50,7 +54,8 @@
 				    
 					<div>
 					    <h:outputLabel value="Prioridade:" for="prioridadeMenu" />
-					    <h:selectOneMenu id="prioridadeMenu" value="#{tarefaBean.prioridadeSelecionada}">
+					    <h:selectOneMenu id="prioridadeMenu" value="#{tarefaBean.prioridadeSelecionada}" required="true"
+				    	 	requiredMessage="O campo Prioridade é obrigatório.">
 					        <f:selectItem itemLabel="Selecione uma prioridade"  itemValue="#{null}" noSelectionOption="true"/>
 					        <f:selectItems value="#{tarefaBean.prioridades}" var="prioridade" itemValue="#{prioridade.value}" itemLabel="#{prioridade.label}" />
 					    </h:selectOneMenu>
@@ -62,6 +67,12 @@
 			    </h:inputText>
 				<br/>
 			    <h:commandButton value="Cadastrar" action="#{tarefaBean.salvar}" update="@form"/>
+			    <br/>
+			    <h:message for="cmpTitulo" styleClass="error-message"/>
+			    <br/>
+			    <h:message for="responsavelMenu" styleClass="error-message"/>
+			    <br/>
+			    <h:message for="prioridadeMenu" styleClass="error-message"/>
 	    	</h:form>
    		</div>  
 	</div>

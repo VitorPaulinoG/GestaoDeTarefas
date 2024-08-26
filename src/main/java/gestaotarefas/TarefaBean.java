@@ -89,8 +89,8 @@ public class TarefaBean {
 	}
 	public String remover ()
 	{
-		
-		dataAccess.remover(tarefa);
+		Tarefa t = dataAccess.buscar(tarefa);
+		dataAccess.remover(t);
 		carregarTarefas();
 		return "";
 	}
