@@ -27,7 +27,7 @@ public class TarefaBean {
 //	private Usuario usuarioSelecionado = new Usuario();
 	private Long usuarioSelecionadoId;
 
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	//private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	private Prioridade prioridadeSelecionada; 
 	
@@ -42,18 +42,22 @@ public class TarefaBean {
 	
 	public String salvar ()
 	{
-		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
-		Long id = usuarioSelecionadoId;
-		Usuario user = new Usuario();
-		user.setId(id);
-		user = dao.buscar(user);
-		tarefa.setResponsavel(user);
-		tarefa.setSituacao(SituacaoTarefa.EMANDAMENTO);
-		tarefa.setPrioridade(prioridadeSelecionada);
-		dataAccess.salvar(tarefa);
-		limparCampos();
+		if(this.tarefa != null && !this.tarefa.getTitulo().isBlank() && !this.tarefa.getTitulo().isEmpty() 
+			&& usuarioSelecionadoId != null && usuarioSelecionadoId > 0 && prioridadeSelecionada != null)
+		{
+			GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
+			Long id = usuarioSelecionadoId;
+			Usuario user = new Usuario();
+			user.setId(id);
+			user = dao.buscar(user);
+			tarefa.setResponsavel(user);
+			tarefa.setSituacao(SituacaoTarefa.EMANDAMENTO);
+			tarefa.setPrioridade(prioridadeSelecionada);
+			dataAccess.salvar(tarefa);
+			limparCampos();
+			carregarTarefas();			
+		}
 		
-		carregarTarefas();
 		return "";
 	}
 	public String editar ()
@@ -102,16 +106,16 @@ public class TarefaBean {
 	@PostConstruct
 	public void init ()
 	{
-		atualizaListaDeUsuarios();
+//		atualizaListaDeUsuarios();
 		carregarTarefas();
 	}
 	
 	
-	public void atualizaListaDeUsuarios()
-	{
-		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
-		this.setUsuarios(dao.listar(Usuario.class));
-	}
+//	public void atualizaListaDeUsuarios()
+//	{
+//		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
+//		this.setUsuarios(dao.listar(Usuario.class));
+//	}
 	
 	public String irParaCadastro ()
 	{
@@ -173,13 +177,13 @@ public class TarefaBean {
 		this.tarefas = tarefas;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
+//	public List<Usuario> getUsuarios() {
+//		return usuarios;
+//	}
+//
+//	public void setUsuarios(List<Usuario> usuarios) {
+//		this.usuarios = usuarios;
+//	}
 
 	public Prioridade getPrioridadeSelecionada() {
 		return prioridadeSelecionada;
